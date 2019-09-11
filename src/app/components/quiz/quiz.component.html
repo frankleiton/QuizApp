@@ -1,0 +1,28 @@
+<mat-card class="form-login">
+    <mat-card-title color="primary">
+        {{questions[atualQuestion].title}}
+    </mat-card-title>
+    <mat-card-content>
+        <p>Texto que segmenta a pergunta que ta sendo feita</p>
+
+        <div class="opcoes">
+            <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
+                [(ngModel)]="user_resposta">
+                <mat-radio-button class="example-radio-button" *ngFor="let season of questions[atualQuestion].options"
+                    [value]="season.id">
+                    {{season.name}}
+                </mat-radio-button>
+            </mat-radio-group>
+            <div>Opção selecionada: {{user_resposta}}</div>
+        </div>
+
+    </mat-card-content>
+    <mat-card-actions align="end">
+        <button *ngIf="atualQuestion == questions.length-1"  mat-raised-button color="primary" (click)="endQuestion(user_resposta)">Finalizar</button>
+        <button *ngIf="atualQuestion < questions.length-1" mat-raised-button color="primary" (click)="nextQuestion(user_resposta)">Próximo</button>
+    </mat-card-actions>
+
+
+</mat-card>
+
+<pre>{{user_resposta_json}}</pre>
