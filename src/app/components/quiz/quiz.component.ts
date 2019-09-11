@@ -22,6 +22,7 @@ export class QuizComponent implements OnInit {
   constructor(private _router: Router) 
   {
     this.atualQuestion = 0
+    this.user_resposta = ""
   }
 
   ngOnInit() 
@@ -31,37 +32,30 @@ export class QuizComponent implements OnInit {
 
   nextQuestion(prev_resposta) 
   {
-
     if (this.questions.length > this.atualQuestion) 
     {
       this.user_resposta_json.push({ 'questao': this.questions[this.atualQuestion], 'resposta': prev_resposta })
+      this.user_resposta = ""
       this.atualQuestion += 1
     }
-
-    if (this.atualQuestion == this.questions.length) 
-    {
-      console.log('igual');
-
-    }
-
-    console.log(this.user_resposta_json);
-    console.log(this.atualQuestion);
-
-
   }
 
   endQuestion(prev_resposta) 
   {
     this.user_resposta_json.push({ 'questao': this.questions[this.atualQuestion], 'resposta': prev_resposta })
-    console.log(this.user_resposta_json);
-    
     let data = {
       result: this.user_resposta_json
     }
-
-    console.log(data);
-
     this._router.navigate(['/end'], {state: data}) 
+  }
+
+  backQuestion()
+  {
+    this.user_resposta_json.pop()
+    this.atualQuestion--
+    this.user_resposta = ""
+    console.log(this.user_resposta_json)
+    
   }
 
 }
